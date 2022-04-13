@@ -51,12 +51,13 @@ async function create(req, res) {
 
 // Read 
 async function list(req, res) {
+  const data = await service.list();
   res.json({
-    data: observations,
+    data,
   });
 }
 
 module.exports = {
   create: [hasData, hasLatitude, hasLongitude, hasSkyCondition, asyncErrorBoundary(create)],
-  list
+  list: asyncErrorBoundary(list),
 };
